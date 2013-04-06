@@ -19,6 +19,7 @@
   -->
 <module rename-to="mailapp">
   <inherits name="com.sencha.gxt.ui.GXT" />
-  
+
+  <collapse-all-properties />
   <entry-point class="com.sencha.gxt.mail.client.MailEntryPoint" />
 </module>

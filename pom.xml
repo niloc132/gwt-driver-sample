@@ -95,6 +95,7 @@
             </goals>
             <configuration>
               <moduleName>com.sencha.gxt.mail.Mail</moduleName>
+              <draftCompile>true</draftCompile>
             </configuration>
           </execution>
         </executions>
