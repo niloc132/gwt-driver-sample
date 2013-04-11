@@ -21,9 +21,14 @@ package com.sencha.gxt.mail.client;
  */
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.HTML;
 import com.sencha.gxt.widget.core.client.Window;
+import com.sencha.gxt.widget.core.client.box.MessageBox;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
 import com.sencha.gxt.widget.core.client.form.PasswordField;
 import com.sencha.gxt.widget.core.client.form.TextField;
@@ -47,10 +52,38 @@ public class MailEntryPoint implements EntryPoint {
 
     login.setWidget(form);
     login.setHeadingText("Please log in");
-    login.addButton(new TextButton("Login"));
-    login.addButton(new TextButton("Register"));
+    login.addButton(new TextButton("Login", new SelectHandler() {
+      @Override
+      public void onSelect(SelectEvent event) {
+        login();
+      }
+    }));
+    login.addButton(new TextButton("Register", new SelectHandler() {
+      @Override
+      public void onSelect(SelectEvent event) {
+        register();
+      }
+    }));
     login.setModal(true);
 
     login.show();
+  }
+
+
+  protected void login() {
+    //pretend rpc call
+    new Timer() {
+      @Override
+      public void run() {
+        Window welcome = new Window();
+        welcome.setHeadingText("Welcome Back!");
+        welcome.setWidget(new HTML("Welcome back to this sample application."));
+        welcome.show();
+      }
+    }.schedule(500);
+  }
+
+  protected void register() {
+    
   }
 }

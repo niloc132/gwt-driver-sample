@@ -54,6 +54,9 @@ public class RegisterTest {
 
     loginDialog.find(Button.class).withText("Login").done().click();
 
+    //gotcha!
+    Thread.sleep(1000);
+
     Window welcome = GwtDriverUtils.find(Window.class, driver).withHeading("Welcome Back!").done();
     assert welcome.getElement().isDisplayed();
   }
