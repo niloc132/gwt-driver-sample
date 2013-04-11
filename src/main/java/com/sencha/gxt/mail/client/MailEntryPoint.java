@@ -84,6 +84,35 @@ public class MailEntryPoint implements EntryPoint {
   }
 
   protected void register() {
-    
+    Window register = new Window();
+    register.setHeadingText("Create new Account");
+
+    FlowLayoutContainer form = new FlowLayoutContainer();
+
+    TextField email = new TextField();
+    form.add(new FieldLabel(email, "Email Address"));
+
+    final PasswordField password = new PasswordField();
+    form.add(new FieldLabel(password, "Password"));
+
+    final PasswordField verify = new PasswordField();
+    form.add(new FieldLabel(verify, "Verify Password"));
+
+    register.setWidget(form);
+
+    register.addButton(new TextButton("Create Account", new SelectHandler() {
+      @Override
+      public void onSelect(SelectEvent event) {
+        if (!password.getValue().equals(verify.getValue())) {
+          new MessageBox("Please re-enter matching password").show();
+        } else {
+          Window welcome = new Window();
+          welcome.setHeadingText("Welcome!");
+          welcome.show();
+        }
+      }
+    }));
+
+    register.show();
   }
 }

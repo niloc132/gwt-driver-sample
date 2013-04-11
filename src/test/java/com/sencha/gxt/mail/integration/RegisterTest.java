@@ -77,9 +77,32 @@ public class RegisterTest {
     Field verifyPw = registerDialog.find(Field.class).withLabel("Verify Password").done();
     verifyPw.sendKeys("password123");
 
-    registerDialog.find(Button.class).withText("Create").done().click();
+    //Bug in finder code...
+    registerDialog.find(Button.class).withText("Create Account").done().click();
 
     Window welcome = GwtDriverUtils.find(Window.class, driver).withHeading("Welcome!").done();
+    assert welcome.getElement().isDisplayed();
+  }
+
+  @Test
+  public void testRegisterPasswordMismatch() throws Exception {
+    driver.get("http://localhost:9080/app");
+    Window loginDialog = GwtDriverUtils.find(Window.class, driver).withHeading("log in").done();
+
+    loginDialog.find(Button.class).withText("Register").done().click();
+
+    Window registerDialog = GwtDriverUtils.find(Window.class, driver).withHeading("Create new Account").done();
+
+    Field email = registerDialog.find(Field.class).withLabel("Email Address").done();
+    email.sendKeys("test@test.com");
+    Field password = registerDialog.find(Field.class).withLabel("Password").done();
+    password.sendKeys("password123");
+    Field verifyPw = registerDialog.find(Field.class).withLabel("Verify Password").done();
+    verifyPw.sendKeys("abcdefghijk");
+
+    registerDialog.find(Button.class).withText("Create Account").done().click();
+
+    Window welcome = GwtDriverUtils.find(Window.class, driver).withHeading("Please re-enter matching password").done();
     assert welcome.getElement().isDisplayed();
   }
 }
