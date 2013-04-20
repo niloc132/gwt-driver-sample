@@ -25,10 +25,12 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.senchalabs.gwt.gwtdriver.gxt.models.Button;
 import org.senchalabs.gwt.gwtdriver.gxt.models.Field;
+import org.senchalabs.gwt.gwtdriver.gxt.models.Panel;
 import org.senchalabs.gwt.gwtdriver.gxt.models.Window;
 import org.senchalabs.gwt.gwtdriver.models.GwtWidget;
 
@@ -58,7 +60,7 @@ public class AuthenticationTest {
     //gotcha!
     Thread.sleep(1000);
 
-    Window welcome = GwtWidget.find(Window.class, driver).withHeading("Welcome Back!").done();
+    Panel welcome = GwtWidget.find(Panel.class, driver, driver.findElement(By.tagName("body"))).withHeading("Email").done();
     assert welcome.getElement().isDisplayed();
   }
 
