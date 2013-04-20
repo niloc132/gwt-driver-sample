@@ -23,10 +23,12 @@ package com.sencha.gxt.mail.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.Window;
 import com.sencha.gxt.widget.core.client.box.MessageBox;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.Viewport;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
@@ -39,9 +41,12 @@ import com.sencha.gxt.widget.core.client.form.TextField;
  *
  */
 public class MailEntryPoint implements EntryPoint {
+  private Window login;
+
+
+
   public void onModuleLoad() {
-    //Simple login dialog
-    Window login = new Window();
+    login = new Window();
     FlowLayoutContainer form = new FlowLayoutContainer();
 
     TextField username = new TextField();
@@ -75,16 +80,16 @@ public class MailEntryPoint implements EntryPoint {
     new Timer() {
       @Override
       public void run() {
-        Window welcome = new Window();
-        welcome.setHeadingText("Welcome Back!");
-        welcome.setWidget(new HTML("Welcome back to this sample application."));
-        welcome.show();
+        //success, so start app and hide dialog
+        login.hide();
+        startApp();
       }
     }.schedule(500);
   }
 
   protected void register() {
-    Window register = new Window();
+    login.hide();
+    final Window register = new Window();
     register.setHeadingText("Create new Account");
 
     FlowLayoutContainer form = new FlowLayoutContainer();
@@ -106,13 +111,25 @@ public class MailEntryPoint implements EntryPoint {
         if (!password.getValue().equals(verify.getValue())) {
           new MessageBox("Please re-enter matching password").show();
         } else {
+          //success, so start app and hide dialog
+          register.hide();
           Window welcome = new Window();
           welcome.setHeadingText("Welcome!");
           welcome.show();
+          startApp();
         }
       }
     }));
 
     register.show();
   }
+
+
+
+  protected void startApp() {
+    Viewport vp = new Viewport();
+    vp.setWidget(new MainAppView());
+    RootPanel.get().add(vp);
+  }
+
 }
