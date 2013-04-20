@@ -30,6 +30,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.senchalabs.gwt.gwtdriver.gxt.models.Button;
 import org.senchalabs.gwt.gwtdriver.gxt.models.Field;
 import org.senchalabs.gwt.gwtdriver.gxt.models.Window;
+import org.senchalabs.gwt.gwtdriver.models.GwtWidget;
 
 public class AuthenticationTest {
   private WebDriver driver;
@@ -47,7 +48,7 @@ public class AuthenticationTest {
   @Test
   public void testLogin() throws Exception {
     driver.get("http://localhost:9080/app");
-    Window loginDialog = GwtDriverUtils.find(Window.class, driver).withHeading("log in").done();
+    Window loginDialog = GwtWidget.find(Window.class, driver).withHeading("log in").done();
 
     loginDialog.find(Field.class).withLabel("User").done().sendKeys("colin");
     loginDialog.find(Field.class).withLabel("Password").done().sendKeys("mypassword");
@@ -57,18 +58,18 @@ public class AuthenticationTest {
     //gotcha!
     Thread.sleep(1000);
 
-    Window welcome = GwtDriverUtils.find(Window.class, driver).withHeading("Welcome Back!").done();
+    Window welcome = GwtWidget.find(Window.class, driver).withHeading("Welcome Back!").done();
     assert welcome.getElement().isDisplayed();
   }
 
   @Test
   public void testRegister() throws Exception {
     driver.get("http://localhost:9080/app");
-    Window loginDialog = GwtDriverUtils.find(Window.class, driver).withHeading("log in").done();
+    Window loginDialog = GwtWidget.find(Window.class, driver).withHeading("log in").done();
 
     loginDialog.find(Button.class).withText("Register").done().click();
 
-    Window registerDialog = GwtDriverUtils.find(Window.class, driver).withHeading("Create new Account").done();
+    Window registerDialog = GwtWidget.find(Window.class, driver).withHeading("Create new Account").done();
 
     Field email = registerDialog.find(Field.class).withLabel("Email Address").done();
     email.sendKeys("test@test.com");
@@ -80,18 +81,18 @@ public class AuthenticationTest {
     //Bug in finder code...
     registerDialog.find(Button.class).withText("Create Account").done().click();
 
-    Window welcome = GwtDriverUtils.find(Window.class, driver).withHeading("Welcome!").done();
+    Window welcome = GwtWidget.find(Window.class, driver).withHeading("Welcome!").done();
     assert welcome.getElement().isDisplayed();
   }
 
   @Test
   public void testRegisterPasswordMismatch() throws Exception {
     driver.get("http://localhost:9080/app");
-    Window loginDialog = GwtDriverUtils.find(Window.class, driver).withHeading("log in").done();
+    Window loginDialog = GwtWidget.find(Window.class, driver).withHeading("log in").done();
 
     loginDialog.find(Button.class).withText("Register").done().click();
 
-    Window registerDialog = GwtDriverUtils.find(Window.class, driver).withHeading("Create new Account").done();
+    Window registerDialog = GwtWidget.find(Window.class, driver).withHeading("Create new Account").done();
 
     Field email = registerDialog.find(Field.class).withLabel("Email Address").done();
     email.sendKeys("test@test.com");
@@ -102,7 +103,7 @@ public class AuthenticationTest {
 
     registerDialog.find(Button.class).withText("Create Account").done().click();
 
-    Window welcome = GwtDriverUtils.find(Window.class, driver).withHeading("Please re-enter matching password").done();
+    Window welcome = GwtWidget.find(Window.class, driver).withHeading("Please re-enter matching password").done();
     assert welcome.getElement().isDisplayed();
   }
 }
