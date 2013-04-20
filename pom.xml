@@ -16,6 +16,9 @@
 
     <gwt.version>2.5.1</gwt.version>
     <gxt.version>3.0.1</gxt.version>
+
+    <selenium.version>2.32.0</selenium.version>
+
   </properties>
   <licenses>
     <license>
@@ -60,6 +63,18 @@
       <groupId>org.senchalabs.gwt</groupId>
       <artifactId>gxt-driver</artifactId>
       <version>0.0.1-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>${selenium.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-server</artifactId>
+      <version>${selenium.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
