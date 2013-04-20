@@ -31,7 +31,7 @@ import org.senchalabs.gwt.gwtdriver.gxt.models.Button;
 import org.senchalabs.gwt.gwtdriver.gxt.models.Field;
 import org.senchalabs.gwt.gwtdriver.gxt.models.Window;
 
-public class RegisterTest {
+public class AuthenticationTest {
   private WebDriver driver;
 
   @Before
