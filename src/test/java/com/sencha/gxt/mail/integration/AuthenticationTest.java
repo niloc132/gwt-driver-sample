@@ -42,6 +42,7 @@ public class AuthenticationTest {
     driver = new FirefoxDriver();
     driver.manage().timeouts().setScriptTimeout(1000, TimeUnit.MILLISECONDS);
   }
+
   @After
   public void teardown() {
     driver.close();
@@ -57,10 +58,7 @@ public class AuthenticationTest {
 
     loginDialog.find(Button.class).withText("Login").done().click();
 
-    //gotcha!
-    Thread.sleep(1000);
-
-    Panel welcome = GwtWidget.find(Panel.class, driver, driver.findElement(By.tagName("body"))).withHeading("Email").done();
+    Panel welcome = GwtWidget.find(Panel.class, driver, driver.findElement(By.tagName("body"))).withHeading("Email").waitFor();
     assert welcome.getElement().isDisplayed();
   }
 
@@ -80,8 +78,7 @@ public class AuthenticationTest {
     Field verifyPw = registerDialog.find(Field.class).withLabel("Verify Password").done();
     verifyPw.sendKeys("password123");
 
-    //Bug in finder code...
-    registerDialog.find(Button.class).withText("Create Account").done().click();
+    registerDialog.find(Button.class).withText("Create").done().click();
 
     Window welcome = GwtWidget.find(Window.class, driver).withHeading("Welcome!").done();
     assert welcome.getElement().isDisplayed();
@@ -103,7 +100,7 @@ public class AuthenticationTest {
     Field verifyPw = registerDialog.find(Field.class).withLabel("Verify Password").done();
     verifyPw.sendKeys("abcdefghijk");
 
-    registerDialog.find(Button.class).withText("Create Account").done().click();
+    registerDialog.find(Button.class).withText("Create").done().click();
 
     Window welcome = GwtWidget.find(Window.class, driver).withHeading("Please re-enter matching password").done();
     assert welcome.getElement().isDisplayed();

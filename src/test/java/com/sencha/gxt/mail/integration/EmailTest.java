@@ -55,9 +55,10 @@ public class EmailTest {
 
     loginDialog.find(Button.class).withText("Login").done().click();
 
-    //gotcha!
-    Thread.sleep(1000);
+    //wait until ready
+    GwtWidget.find(Panel.class, driver, driver.findElement(By.tagName("body"))).withHeading("Email").waitFor();
   }
+
   @After
   public void teardown() {
     driver.close();
@@ -73,7 +74,7 @@ public class EmailTest {
 
     //okay, cheating into regular webdriver territory
     WebElement mailboxElt = email.getElement().findElement(new FasterByChained(By.xpath(".//*"),
-        new ByWidget(driver, com.sencha.gxt.widget.core.client.ListView.class)));
+            new ByWidget(driver, com.sencha.gxt.widget.core.client.ListView.class)));
     ListView mailbox = new ListView(driver, mailboxElt);
 
     mailbox.clickItemWithText("Inbox");
