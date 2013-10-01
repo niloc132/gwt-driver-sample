@@ -25,7 +25,6 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.senchalabs.gwt.gwtdriver.gxt.models.Button;
@@ -58,7 +57,7 @@ public class AuthenticationTest {
 
     loginDialog.find(Button.class).withText("Login").done().click();
 
-    Panel welcome = GwtWidget.find(Panel.class, driver, driver.findElement(By.tagName("body"))).withHeading("Email").waitFor();
+    Panel welcome = GwtWidget.find(Panel.class, driver).withHeading("Email").waitFor();
     assert welcome.getElement().isDisplayed();
   }
 

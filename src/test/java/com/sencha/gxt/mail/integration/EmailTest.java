@@ -56,17 +56,17 @@ public class EmailTest {
     loginDialog.find(Button.class).withText("Login").done().click();
 
     //wait until ready
-    GwtWidget.find(Panel.class, driver, driver.findElement(By.tagName("body"))).withHeading("Email").waitFor();
+    GwtWidget.find(Panel.class, driver).withHeading("Email").waitFor();
   }
 
   @After
   public void teardown() {
-    driver.close();
+    driver.quit();
   }
 
   @Test
   public void test() throws Exception {
-    Panel email = GwtWidget.find(Panel.class, driver, driver.findElement(By.tagName("body"))).withHeading("Email").done();
+    Panel email = GwtWidget.find(Panel.class, driver).withHeading("Email").done();
 
     assert email.isCollapsed();//Shouldn't be, but okay for now
     email.getHeaderElement().click();
@@ -79,7 +79,7 @@ public class EmailTest {
 
     mailbox.clickItemWithText("Inbox");
 
-    Panel inbox = GwtWidget.find(Panel.class, driver, driver.findElement(By.tagName("body"))).withHeading("Insert mailbox items here").done();
+    Panel inbox = GwtWidget.find(Panel.class, driver).withHeading("Insert mailbox items here").done();
 
     assert inbox.getElement().isDisplayed();
   }
